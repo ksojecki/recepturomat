@@ -29,13 +29,8 @@ async function prepareDataModel(db: Db): Promise<DataModel> {
 }
 
 async function getSchemaVersion(db: Db): Promise<number> {
-  const collections = await db.listCollections().toArray();
-  if (!collections.includes({ name: 'settings' })) {
-    return CLEAN_SCHEMA;
-  } else {
-    const settings = await db.collection<Settings>('settings').findOne();
-    return settings?.schemaVersion ?? CLEAN_SCHEMA;
-  }
+  const settings = await db.collection<Settings>('settings').findOne();
+  return settings?.schemaVersion ?? CLEAN_SCHEMA;
 }
 
 async function migrateSchema(currentSchema: number, db: Db) {

@@ -1,6 +1,5 @@
 import { useAuthentication } from './api/authentication';
 import { Outlet } from 'react-router';
-import { CenterLayout } from '@ui/layout/centerLayout';
 import { Menu } from '@ui/menu';
 import { FaTools, FaUser } from 'react-icons/fa';
 import { Modal } from '@ui/modal';
@@ -16,17 +15,12 @@ export const DashboardLayout = () => {
   };
 
   const goToGithub = () => {
-    window.open(
-      'https://github.com/ksojecki/recepturomat-water-management',
-      '_blank'
-    );
+    window.open('https://github.com/ksojecki/recepturomat', '_blank');
   };
   if (isLoading) return null;
   return (
     <>
-      <CenterLayout>
-        <Outlet />
-      </CenterLayout>
+      <Outlet />
       <Menu size={5}>
         <Menu.Link tooltip="Source code" onClick={goToGithub}>
           Source code

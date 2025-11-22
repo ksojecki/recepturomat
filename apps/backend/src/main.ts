@@ -6,6 +6,7 @@ import { AppSettings } from './settings';
 import * as fs from 'node:fs';
 import cors from 'cors';
 import { useErrorHandler } from './api/errorHandler';
+import { getRecipeList } from './api/recipeList';
 
 const app = express();
 
@@ -14,8 +15,8 @@ app.use(useErrorHandler);
 app.use(express.json());
 
 app.use('/api/authentication', authentication);
-app.get('/api/state', useAuthentication, (req, res) => {
-  res.json({ state: 'ready' });
+app.get('/api/recipe/list', useAuthentication, (req, res) => {
+  res.json(getRecipeList());
 });
 
 const port = process.env.PORT || 3333;

@@ -12,4 +12,7 @@ export type {
   ApiResponse,
 } from './lib/types/response';
 
+export type { Recipe, RecipeListEntry } from './lib/types/recipe';
+export type { Ingredient } from './lib/types/ingredient';
+
 export { isUnauthorized } from './lib/checkers';

@@ -1,9 +1,14 @@
-import { ApiError, ApiResponse, SystemState } from '@recepturomat/data-model';
+import {
+  ApiError,
+  ApiResponse,
+  Recipe,
+  RecipeListEntry,
+} from '@recepturomat/data-model';
 import { useQuery } from './query';
 import { useAuthentication } from './authentication';
 import { useEffect, useState } from 'react';
 
-type EndpointName = 'state';
+type EndpointName = 'recipe' | 'recipe/list' | 'ingredient';
 
 const useApi = <T extends object>(endpoint: EndpointName) => {
   const { token, logout } = useAuthentication();
@@ -48,7 +53,12 @@ const useApi = <T extends object>(endpoint: EndpointName) => {
   return { payload, error };
 };
 
-export const useSystemState = () => {
-  const apiParams = useApi<SystemState>('state');
-  return { systemState: apiParams.payload, error: apiParams.error };
+export const useRecipeList = () => {
+  const apiParams = useApi<RecipeListEntry[]>('recipe/list');
+  return { recipeList: apiParams.payload, error: apiParams.error };
+};
+
+export const useRecipe = ({ id }: { id: string }) => {
+  const apiParams = useApi<Recipe[]>('recipe');
+  return { recipe: apiParams.payload, error: apiParams.error };
 };

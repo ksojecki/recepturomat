@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/ui"
+    },
+    {
+      "path": "./apps/backend"
+    },
+    {
+      "path": "./libs/data-model"
+    },
+    {
+      "path": "./libs/app-toolkit"
+    }
+  ]
+}

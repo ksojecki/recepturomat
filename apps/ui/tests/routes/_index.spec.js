@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_router_1 = require("react-router");
 var react_1 = require("@testing-library/react");
-var dashboardPage_1 = require("../../app/dashboard/dashboardPage");
+var dashboardPage_1 = require("../../app/recipes/RecipesListPage.tsx");
 global.fetch = jest.fn();
 global.fetch = jest.fn(function () {
     return Promise.resolve({
@@ -53,7 +53,7 @@ test('Render main page', function () { return __awaiter(void 0, void 0, void 0, 
                 ReactRouterStub = (0, react_router_1.createRoutesStub)([
                     {
                         path: '/',
-                        Component: dashboardPage_1.default,
+                        Component: RecipesPage.default,
                     },
                 ]);
                 (0, react_1.render)(<ReactRouterStub />);

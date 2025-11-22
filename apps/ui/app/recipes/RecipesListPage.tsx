@@ -6,7 +6,7 @@ import { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
 import { Button } from '@ui/forms/Button';
 import { FaCircleXmark } from 'react-icons/fa6';
 
-export function DashboardPage() {
+export function RecipesListPage() {
   const { recipeList, error } = useRecipeList();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -51,4 +51,4 @@ export function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default RecipesListPage;

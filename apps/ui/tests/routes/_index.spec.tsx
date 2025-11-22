@@ -1,6 +1,6 @@
 import { createRoutesStub } from 'react-router';
 import { render, screen, waitFor } from '@testing-library/react';
-import DashboardPage from '../../app/dashboard/dashboardPage';
+import RecipesListPage from '../../app/recipes/RecipesListPage';
 
 global.fetch = jest.fn();
 
@@ -14,7 +14,7 @@ test('Render main page', async () => {
   const ReactRouterStub = createRoutesStub([
     {
       path: '/',
-      Component: DashboardPage,
+      Component: RecipesListPage,
     },
   ]);
 

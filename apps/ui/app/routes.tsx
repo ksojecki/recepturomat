@@ -5,9 +5,11 @@ import {
   layout,
 } from '@react-router/dev/routes';
 
+
 export default [
   layout('./ApiLayout.tsx', [
-    index('./dashboard/dashboardPage.tsx'),
+    index('./recipes/RecipesListPage.tsx'),
+    route( '/recipe/:recipeId','./recipes/RecipePage.tsx'),
     route('/login', './authentication/loginPage.tsx'),
   ]),
 ] satisfies RouteConfig;

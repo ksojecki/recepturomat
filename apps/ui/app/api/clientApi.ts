@@ -8,7 +8,7 @@ import { useQuery } from './query';
 import { useAuthentication } from './authentication';
 import { useEffect, useState } from 'react';
 
-type EndpointName = 'recipe' | 'recipe/list' | 'ingredient';
+type EndpointName = `recipe/${string}` | 'recipe/list' | 'ingredient';
 
 const useApi = <T extends object>(endpoint: EndpointName) => {
   const { token, logout } = useAuthentication();
@@ -59,6 +59,6 @@ export const useRecipeList = () => {
 };
 
 export const useRecipe = ({ id }: { id: string }) => {
-  const apiParams = useApi<Recipe[]>('recipe');
+  const apiParams = useApi<Recipe>(`recipe/${id}`);
   return { recipe: apiParams.payload, error: apiParams.error };
 };

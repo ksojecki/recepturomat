@@ -1,4 +1,5 @@
 import { RecipeListEntry } from '@recepturomat/data-model';
+import { Link } from 'react-router';
 
 type DashboardProps = {
   recipeList: RecipeListEntry[];
@@ -12,7 +13,7 @@ export const RecipeList = ({ recipeList }: DashboardProps) => {
             <h2 className="card-title">{recipe.name}</h2>
             <p></p>
             <div className="card-actions justify-end">
-              <button className="btn">Zobacz</button>
+              <Link to={{pathname: `/recipe/${recipe.recipeId}`}} className="btn">Zobacz</Link>
               <button className="btn btn-primary">Drukuj</button>
             </div>
           </div>

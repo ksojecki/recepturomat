@@ -7,6 +7,7 @@ import * as fs from 'node:fs';
 import cors from 'cors';
 import { useErrorHandler } from './api/errorHandler';
 import { getRecipeList } from './api/recipeList';
+import { getRecipe } from './api/recipe';
 
 const app = express();
 
@@ -17,6 +18,10 @@ app.use(express.json());
 app.use('/api/authentication', authentication);
 app.get('/api/recipe/list', useAuthentication, (req, res) => {
   res.json(getRecipeList());
+});
+
+app.get('/api/recipe/:id', useAuthentication, (req, res) => {
+  res.json(getRecipe(req.params.id));
 });
 
 const port = process.env.PORT || 3333;

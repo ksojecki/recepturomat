@@ -4,8 +4,8 @@ import { Ingredient } from '@recepturomat/data-model';
 import { useState } from 'react';
 import { Link } from 'react-router';
 
-type IngredientProps = { ingredient: Ingredient }
-export const IngredientEntry = ({ ingredient}: IngredientProps) => {
+type IngredientProps = { ingredient: Ingredient, recipeWeight: number }
+export const IngredientEntry = ({ ingredient, recipeWeight}: IngredientProps) => {
   const color = ingredient.recipeId ? 'bg-accent-content' : 'bg-accent-primary';
   const [isExpanded, setIsExpanded] = useState(false);
   return (
@@ -19,7 +19,7 @@ export const IngredientEntry = ({ ingredient}: IngredientProps) => {
       {
         ingredient.recipeId && <>
         { isExpanded ? <div className="list-col-wrap text-xs">
-            <NestedIngredientList recipeId={ingredient.recipeId} />
+            <NestedIngredientList recipeId={ingredient.recipeId} recipeWeight={recipeWeight} />
           </div> : null }
           <button className="btn btn-square btn-ghost" onClick={() => setIsExpanded(!isExpanded)}>
             { isExpanded ?  <FaArrowUp /> : <FaArrowDown /> }

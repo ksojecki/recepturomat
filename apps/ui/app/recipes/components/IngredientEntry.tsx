@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 type IngredientProps = { ingredient: Ingredient, recipeWeight: number }
 export const IngredientEntry = ({ ingredient, recipeWeight}: IngredientProps) => {
-  const color = ingredient.recipeId ? 'bg-accent-content' : 'bg-accent-primary';
+  const color = ingredient.recipeId ? 'bg-base-200' : 'bg-base-100';
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <li className={`list-row ${color}`} key={ingredient.name}>

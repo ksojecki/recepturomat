@@ -4,7 +4,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { Loading } from '@ui/loading';
 import { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
 import { Button } from '@ui/forms/Button';
-import { FaCircleXmark } from 'react-icons/fa6';
+import { FaCircleXmark, FaFileLines } from 'react-icons/fa6';
 
 export function RecipesListPage() {
   const { recipeList, error } = useRecipeList();
@@ -21,7 +21,7 @@ export function RecipesListPage() {
         recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    return recipeList;
+    return recipeList.sort((a, b) => a.name.localeCompare(b.name));
   }, [recipeList, searchQuery]);
 
   if (error) {
@@ -39,10 +39,14 @@ export function RecipesListPage() {
             value={searchQuery}
             onChange={update}
             placeholder="Szukaj"
-            className="input input-bordered join-item"
+            className="input input-bordered join-item flex-grow"
           />
-          <Button className="btn-secondary join-item">
+          <Button className="btn-primary join-item" onClick={() => setSearchQuery('')}  >
             <FaCircleXmark />
+          </Button>
+          <Button className="join-item">
+            Dodaj przepis
+            <FaFileLines />
           </Button>
         </div>
       </div>

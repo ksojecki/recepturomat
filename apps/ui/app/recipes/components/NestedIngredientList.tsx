@@ -8,7 +8,7 @@ export const NestedIngredientList = ( { recipeId, requiredWeight} : NestedIngred
   useEffect(() => {
     setNewWeight(requiredWeight)
   }, [setNewWeight, requiredWeight]);
-  if (!recipe) return <div>Loading...</div>;
+  if (!recipe) return null
   return (
     <IngredientList recipe={recipe} />
   );

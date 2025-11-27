@@ -31,12 +31,19 @@ export const useQuery = <TResponse, TPayload = undefined>({
   const [queryState, setQueryState] = useState<QueryState>('idle');
   const [error, setError] = useState<Error | undefined>(undefined);
   const timestamp = useRef(0);
+  const prevEndpoint = useRef(endpoint);
+
+  const shouldInvalidate =
+    endpoint !== prevEndpoint.current
+    || Date.now() - timestamp.current > 5000;
 
   useEffect(() => {
     if (
+      !shouldInvalidate && (
       !isEnabled ||
       queryState !== 'idle' ||
       Date.now() - timestamp.current < 5000
+      )
     )
       return;
     setQueryState('loading');
@@ -54,7 +61,7 @@ export const useQuery = <TResponse, TPayload = undefined>({
           cause: error,
         });
       });
-  }, [apiToken, endpoint, body, isEnabled, queryState]);
+  }, [apiToken, endpoint, body, isEnabled, queryState, shouldInvalidate]);
 
   return { data, queryState, queryError: error };
 };

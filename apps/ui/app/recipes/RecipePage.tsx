@@ -12,7 +12,7 @@ type AlteredWeight = {
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
-  const { recipe, dispatch } = useRecalculatedRecipe(recipeId);
+  const { recipe, setNewWeight } = useRecalculatedRecipe(recipeId);
 
   const { register, watch } = useForm<AlteredWeight>({
     defaultValues: {
@@ -25,7 +25,7 @@ export const RecipePage = () => {
     if(value.value === undefined) {
       return;
     }
-    dispatch({ newWeight: value.value * (value.unit === 'g' ? 1 : 1000) })
+    setNewWeight(value.value * (value.unit === 'g' ? 1 : 1000))
   })
 
   if (!recipe) return (<div>Loading...</div>);

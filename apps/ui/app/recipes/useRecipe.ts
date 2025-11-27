@@ -1,45 +1,76 @@
 import { useRecipe } from '../api/clientApi';
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { AlteredRecipe } from './types';
+
+type Action = {
+  type: 'reset' | 'recalculate'
+} | {
+  type: 'newWeight',
+  newWeight: number
+}
+
+type RecipeState = AlteredRecipe | Pick<AlteredRecipe, 'weight'> | undefined
+
+const isAlteredRecipe = (value: unknown): value is AlteredRecipe => {
+  return typeof value === 'object' && value !== null && 'ingredients' in value;
+}
 
 export const useRecalculatedRecipe = (id: string | undefined) => {
   const { recipe } = useRecipe({ id: id || '' });
 
-  const [value, dispatch] = useReducer((previous: AlteredRecipe | undefined, action: 'reset' | { newWeight: number }) => {
-    if(action === 'reset') {
+  const [value, dispatch] = useReducer((previous: RecipeState | undefined, action: Action) => {
+    if(action.type === 'reset' ||
+      (action.type === 'recalculate' && previous === undefined)) {
       return recipe ? {
         ...recipe,
         weight: recipe.defaultWeight
       } : undefined;
     }
 
-    if(!action.newWeight) return previous;
+    if(action.type === 'newWeight' && previous?.weight === action.newWeight) return previous;
 
-    if (recipe) {
-      const { ingredients, defaultWeight, ...rest } = recipe;
-      const weight = action.newWeight ?? previous?.weight ?? recipe.defaultWeight ?? 0;
-      const ratio = weight / defaultWeight
-      const recalculatedIngredients = ingredients.map(ingredient => ({
-        ...ingredient,
-        amount: ingredient.amount * ratio
-      }))
-
+    if(!recipe && action.type === 'newWeight') {
       return {
-        ingredients: recalculatedIngredients,
-        defaultWeight,
-        ...rest,
-        weight,
-      } satisfies AlteredRecipe;
+        weight: action.newWeight
+      };
     }
-    return undefined;
+
+    if(!recipe) return undefined;
+
+    const getWeight = (): number => {
+      if(action.type === 'newWeight') return action.newWeight;
+      if(action.type === 'recalculate' && previous) return previous.weight;
+      return recipe.defaultWeight;
+    };
+
+    const weight = getWeight();
+
+    const { ingredients, defaultWeight, ...rest } = recipe;
+    const ratio = weight / defaultWeight
+    const recalculatedIngredients = ingredients.map(ingredient => ({
+      ...ingredient,
+      amount: ingredient.amount * ratio
+    }))
+
+    return {
+      ingredients: recalculatedIngredients,
+      defaultWeight,
+      ...rest,
+      weight,
+    } satisfies AlteredRecipe;
   }, undefined)
 
   useEffect(() => {
-    if(recipe) dispatch('reset')
+    if(recipe) dispatch({ type: 'recalculate'})
   }, [recipe, id])
 
   return {
-    recipe: value,
-    dispatch
+    recipe: isAlteredRecipe(value) ? value : undefined,
+    reset: useCallback(() =>
+      dispatch({ type: 'reset' }),
+      [dispatch]),
+    setNewWeight: useCallback((newWeight: number) =>
+      dispatch({ type: 'newWeight', newWeight }),
+      [dispatch])
   }
 };

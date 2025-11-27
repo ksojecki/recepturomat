@@ -1,1 +1,1 @@
-export { RecipeList } from './recipeList';
+export { RecipeList } from './RecipeList';

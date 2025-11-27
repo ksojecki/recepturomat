@@ -4,6 +4,9 @@ import { IngredientList } from './components/IngredientList';
 import { FaArrowLeft, FaEdit, FaPrint, FaTrash } from 'react-icons/fa';
 import { useRecalculatedRecipe } from './useRecipe';
 import { useForm } from 'react-hook-form';
+import { FaCircleXmark } from 'react-icons/fa6';
+import { Button } from '@ui/forms/Button';
+import { Loading } from '@ui/loading';
 
 type AlteredWeight = {
   unit: 'g' | 'pcs';
@@ -12,29 +15,33 @@ type AlteredWeight = {
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
-  const { recipe, setNewWeight } = useRecalculatedRecipe(recipeId);
+  const { recipe, setNewWeight, reset } = useRecalculatedRecipe(recipeId);
 
-  const { register, watch } = useForm<AlteredWeight>({
+  const { register, watch, setValue } = useForm<AlteredWeight>({
     defaultValues: {
       unit: 'g',
-      value: recipe?.defaultWeight
+      value: undefined
     }
   });
 
-  watch((value) => {
-    if(value.value === undefined) {
+  watch(({ value, unit }) => {
+    if (value === undefined || value <=0 || isNaN(value)) {
+      reset();
       return;
     }
-    setNewWeight(value.value * (value.unit === 'g' ? 1 : 1000))
-  })
+    setNewWeight(value * (unit === 'g' ? 1 : 1000));
+  });
 
-  if (!recipe) return (<div>Loading...</div>);
+  if (!recipe) return (<Loading />);
   return (
     <div className="m-4">
       <div className="flex flex-col pb-4">
         <div className="flex flex-row space-x-1">
           <Link className={'btn'} to='/' ><FaArrowLeft /></Link>
-          <h1 className="text-3xl pb-4 font-bold">{recipe.name} - {recipe.defaultWeight} g</h1>
+          <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} g</h1>
+          <button className="btn btn-success join-item">Drukuj<FaPrint /></button>
+          <button className="btn join-item">Edytuj<FaEdit /></button>
+          <button className="btn join-item">Usuń<FaTrash /></button>
         </div>
         <div className="flex flex-col space-y-2">
           <div className="join w-full">
@@ -44,9 +51,11 @@ export const RecipePage = () => {
               <option value={'g'}>g</option>
               <option value={'pcs'}>sztuk</option>
             </select>
-            <button className="btn btn-success join-item">Drukuj<FaPrint /></button>
-            <button className="btn join-item">Edytuj<FaEdit /></button>
-            <button className="btn join-item">Usuń<FaTrash /></button>
+            <Button className="btn-primary join-item" onClick={() => {
+              setValue('value', undefined);
+            }}  >
+              <FaCircleXmark />
+            </Button>
           </div>
         </div>
       </div>

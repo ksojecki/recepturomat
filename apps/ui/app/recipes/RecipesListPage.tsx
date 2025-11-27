@@ -32,7 +32,14 @@ export function RecipesListPage() {
   return (
     <>
       <div className="flex flex-col m-4 pb-4">
-        <h1 className="text-3xl pb-4 font-bold">Receptury</h1>
+        <div className="flex">
+          <h1 className="text-3xl pb-4 font-bold flex-grow">Receptury</h1>
+          <Button className="join-item">
+            Dodaj przepis
+            <FaFileLines />
+          </Button>
+        </div>
+
         <div className="join w-full">
           <input
             type="text"
@@ -43,10 +50,6 @@ export function RecipesListPage() {
           />
           <Button className="btn-primary join-item" onClick={() => setSearchQuery('')}  >
             <FaCircleXmark />
-          </Button>
-          <Button className="join-item">
-            Dodaj przepis
-            <FaFileLines />
           </Button>
         </div>
       </div>

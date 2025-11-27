@@ -3,12 +3,32 @@ import { IngredientList } from './components/IngredientList';
 
 import { FaArrowLeft, FaEdit, FaPrint, FaTrash } from 'react-icons/fa';
 import { useRecalculatedRecipe } from './useRecipe';
+import { useForm } from 'react-hook-form';
+
+type AlteredWeight = {
+  unit: 'g' | 'pcs';
+  value: number | undefined;
+};
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
   const { recipe, dispatch } = useRecalculatedRecipe(recipeId);
 
-  if (!recipe) return <div>Loading...</div>;
+  const { register, watch } = useForm<AlteredWeight>({
+    defaultValues: {
+      unit: 'g',
+      value: recipe?.defaultWeight
+    }
+  });
+
+  watch((value) => {
+    if(value.value === undefined) {
+      return;
+    }
+    dispatch({ newWeight: value.value * (value.unit === 'g' ? 1 : 1000) })
+  })
+
+  if (!recipe) return (<div>Loading...</div>);
   return (
     <div className="m-4">
       <div className="flex flex-col pb-4">
@@ -18,20 +38,11 @@ export const RecipePage = () => {
         </div>
         <div className="flex flex-col space-y-2">
           <div className="join w-full">
-            <input className="input join-item flex-grow" placeholder="Nowa waga"
-              onChange={(e) => {
-                if(e.target.value === '') {
-                  dispatch('reset')
-                  return;
-                }
-                const value =  Number(e.target.value);
-                if(isNaN(value)) return;
-                dispatch({ newWeight: value});
-              }}
+            <input {...register('value')} className="input join-item flex-grow" placeholder="Nowa waga"
             />
-            <select className="select join-item w-[100px]">
-              <option selected>g</option>
-              <option>sztuk</option>
+            <select {...register('unit')} className="select join-item w-[100px]">
+              <option value={'g'}>g</option>
+              <option value={'pcs'}>sztuk</option>
             </select>
             <button className="btn btn-success join-item">Drukuj<FaPrint /></button>
             <button className="btn join-item">Edytuj<FaEdit /></button>

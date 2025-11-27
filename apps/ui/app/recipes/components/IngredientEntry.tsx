@@ -19,7 +19,7 @@ export const IngredientEntry = ({ ingredient, recipeWeight}: IngredientProps) =>
       {
         ingredient.recipeId && <>
         { isExpanded ? <div className="list-col-wrap text-xs">
-            <NestedIngredientList recipeId={ingredient.recipeId} recipeWeight={recipeWeight} />
+            <NestedIngredientList recipeId={ingredient.recipeId} requiredWeight={ingredient.amount} />
           </div> : null }
           <button className="btn btn-square btn-ghost" onClick={() => setIsExpanded(!isExpanded)}>
             { isExpanded ?  <FaArrowUp /> : <FaArrowDown /> }

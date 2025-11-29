@@ -1,6 +1,7 @@
-import { useRecipe } from '../api/clientApi';
+
 import { useCallback, useEffect, useReducer } from 'react';
 import { AlteredRecipe } from './types';
+import { useRecipe } from '../api/useRecipe';
 
 type Action = {
   type: 'reset' | 'recalculate'
@@ -16,7 +17,8 @@ const isAlteredRecipe = (value: unknown): value is AlteredRecipe => {
 }
 
 export const useRecalculatedRecipe = (id: string | undefined) => {
-  const { recipe } = useRecipe({ id: id || '' });
+  const recipeQueryResult = useRecipe(id);
+  const recipe = recipeQueryResult.data;
 
   const [value, dispatch] = useReducer((previous: RecipeState | undefined, action: Action) => {
     if(action.type === 'reset' ||

@@ -1,7 +1,13 @@
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { IngredientList } from './components/IngredientList';
 
-import { FaArrowLeft, FaEdit, FaPrint, FaTrash } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaArrowUp,
+  FaEdit,
+  FaPrint,
+  FaTrash,
+} from 'react-icons/fa';
 import { useRecalculatedRecipe } from './useRecipe';
 import { useForm } from 'react-hook-form';
 import { FaCircleXmark } from 'react-icons/fa6';
@@ -15,6 +21,7 @@ type AlteredWeight = {
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
+  const navigate= useNavigate();
   const { recipe, setNewWeight, reset } = useRecalculatedRecipe(recipeId);
 
   const { register, watch, setValue } = useForm<AlteredWeight>({
@@ -37,7 +44,8 @@ export const RecipePage = () => {
     <div className="m-4">
       <div className="flex flex-col pb-4">
         <div className="flex flex-row space-x-1">
-          <Link className={'btn'} to='/' ><FaArrowLeft /></Link>
+          <Button onClick={() => navigate(-1)}><FaArrowLeft /></Button>
+          <Link className={'btn'} to='/' ><FaArrowUp /></Link>
           <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} g</h1>
           <button className="btn btn-success join-item">Drukuj<FaPrint /></button>
           <button className="btn join-item">Edytuj<FaEdit /></button>

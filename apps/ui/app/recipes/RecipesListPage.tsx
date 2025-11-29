@@ -1,13 +1,13 @@
-import { useRecipeList } from '../api/clientApi';
 import { RecipeList } from './components';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Loading } from '@ui/loading';
 import { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
 import { Button } from '@ui/forms/Button';
 import { FaCircleXmark, FaFileLines } from 'react-icons/fa6';
+import { useRecipesList } from '../api/useRecipesList';
 
 export function RecipesListPage() {
-  const { recipeList, error } = useRecipeList();
+  const { data, error, isSuccess, isLoading } = useRecipesList();
   const [searchQuery, setSearchQuery] = useState('');
 
   const update: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
@@ -15,19 +15,19 @@ export function RecipesListPage() {
   }, []);
 
   const filteredList = useMemo(() => {
-    if (!recipeList) return [];
+    if (!isSuccess || !data) return [];
     if (searchQuery.length > 0) {
-      return recipeList.filter((recipe) =>
+      return data.filter((recipe) =>
         recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    return recipeList.sort((a, b) => a.name.localeCompare(b.name));
-  }, [recipeList, searchQuery]);
+    return data.sort((a, b) => a.name.localeCompare(b.name));
+  }, [data, isSuccess, searchQuery]);
 
   if (error) {
     return <ErrorMessage error={error} />;
   }
-  if (recipeList === undefined) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <>

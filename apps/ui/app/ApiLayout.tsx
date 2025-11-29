@@ -5,20 +5,20 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { DashboardLayout } from './DashboardLayout';
 import { useCallback } from 'react';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      retry: false,
+      refetchOnMount: false,
+    },
+  },
+})
+
 const ApiLayout = () => {
   /** Move to context **/
   const navigate = useNavigate();
   const navigation = useNavigation();
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 60 * 5,
-        retry: false,
-        refetchOnMount: false,
-      },
-    },
-  })
 
   const onUnauthenticated = useCallback(() => {
     if (navigation.location?.pathname !== '/login') {

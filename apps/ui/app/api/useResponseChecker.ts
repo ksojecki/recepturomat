@@ -9,6 +9,7 @@ export const useResponseChecker = <T>(endpoint: string) => {
     const result = await query<ApiResponse<T>>({
       endpoint,
       apiToken: token,
+      method: 'GET'
     });
 
     if(result.type === 'success') {

@@ -3,7 +3,7 @@ import { Recipe } from '@recepturomat/data-model';
 export const MockOfRecipes: Recipe[] = [
   {
     "name": "Krem waniliowy bazowy",
-    "recipeId": "base-cream-vanilla",
+    "recipeId": "basecreamvanilla",
     "defaultWeight": 500,
     "ingredients": [
       { "name": "Mleko", "amount": 400, "unit": "ml" },
@@ -15,7 +15,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Krem czekoladowy bazowy",
-    "recipeId": "base-cream-chocolate",
+    "recipeId": "basecreamchocolate",
     "defaultWeight": 600,
     "ingredients": [
       { "name": "Śmietanka 30%", "amount": 300, "unit": "ml" },
@@ -26,7 +26,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Biszkopt bazowy",
-    "recipeId": "base-sponge",
+    "recipeId": "basesponge",
     "defaultWeight": 800,
     "ingredients": [
       { "name": "Jajka", "amount": 200, "unit": "g" },
@@ -37,7 +37,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Ganache czekoladowy",
-    "recipeId": "base-ganache",
+    "recipeId": "baseganache",
     "defaultWeight": 400,
     "ingredients": [
       { "name": "Czekolada 60–70%", "amount": 200, "unit": "g" },
@@ -46,7 +46,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Kruche ciasto bazowe",
-    "recipeId": "base-shortcrust",
+    "recipeId": "baseshortcrust",
     "defaultWeight": 600,
     "ingredients": [
       { "name": "Mąka pszenna", "amount": 300, "unit": "g" },
@@ -62,10 +62,10 @@ export const MockOfRecipes: Recipe[] = [
 
   {
     "name": "Tarta cytrynowa",
-    "recipeId": "dessert-lemon-tart",
+    "recipeId": "dessertlemontart",
     "defaultWeight": 900,
     "ingredients": [
-      { "name": "Kruche ciasto (bazowe)", "amount": 400, "unit": "g", "recipeId": "base-shortcrust" },
+      { "name": "Kruche ciasto (bazowe)", "amount": 400, "unit": "g", "recipeId": "baseshortcrust" },
       { "name": "Masło", "amount": 120, "unit": "g" },
       { "name": "Cukier", "amount": 150, "unit": "g" },
       { "name": "Sok z cytryn", "amount": 150, "unit": "ml" },
@@ -74,18 +74,18 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Monoporcja czekoladowa z ganache",
-    "recipeId": "dessert-choco-monop",
+    "recipeId": "dessertchocomonop",
     "defaultWeight": 200,
     "ingredients": [
-      { "name": "Ganache czekoladowy", "amount": 80, "unit": "g", "recipeId": "base-ganache" },
-      { "name": "Biszkopt", "amount": 40, "unit": "g", "recipeId": "base-sponge" },
+      { "name": "Ganache czekoladowy", "amount": 80, "unit": "g", "recipeId": "baseganache" },
+      { "name": "Biszkopt", "amount": 40, "unit": "g", "recipeId": "basesponge" },
       { "name": "Czekolada 70%", "amount": 20, "unit": "g" },
       { "name": "Śmietanka 30%", "amount": 60, "unit": "ml" }
     ]
   },
   {
     "name": "Sernik klasyczny",
-    "recipeId": "dessert-cheesecake-classic",
+    "recipeId": "dessertcheesecakeclassic",
     "defaultWeight": 1500,
     "ingredients": [
       { "name": "Twaróg mielony", "amount": 1000, "unit": "g" },
@@ -97,7 +97,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Brownie czekoladowe",
-    "recipeId": "dessert-brownie",
+    "recipeId": "dessertbrownie",
     "defaultWeight": 900,
     "ingredients": [
       { "name": "Masło", "amount": 150, "unit": "g" },
@@ -109,7 +109,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Tiramisu",
-    "recipeId": "dessert-tiramisu",
+    "recipeId": "desserttiramisu",
     "defaultWeight": 800,
     "ingredients": [
       { "name": "Mascarpone", "amount": 400, "unit": "g" },
@@ -121,7 +121,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Panna cotta malinowa",
-    "recipeId": "dessert-panna-cotta-raspberry",
+    "recipeId": "dessertpannacottaraspberry",
     "defaultWeight": 300,
     "ingredients": [
       { "name": "Śmietanka 30%", "amount": 200, "unit": "ml" },
@@ -132,7 +132,7 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Beza pavlova mini",
-    "recipeId": "dessert-mini-pavlova",
+    "recipeId": "dessertminipavlova",
     "defaultWeight": 120,
     "ingredients": [
       { "name": "Białka", "amount": 60, "unit": "g" },
@@ -143,36 +143,36 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Tarta czekoladowa",
-    "recipeId": "dessert-tart-choco",
+    "recipeId": "desserttartchoco",
     "defaultWeight": 850,
     "ingredients": [
-      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "base-shortcrust" },
-      { "name": "Ganache czekoladowy", "amount": 300, "unit": "g", "recipeId": "base-ganache" },
+      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "baseshortcrust" },
+      { "name": "Ganache czekoladowy", "amount": 300, "unit": "g", "recipeId": "baseganache" },
       { "name": "Czekolada 70%", "amount": 50, "unit": "g" }
     ]
   },
   {
     "name": "Tarta owocowa",
-    "recipeId": "dessert-fruit-tart",
+    "recipeId": "dessertfruittart",
     "defaultWeight": 900,
     "ingredients": [
-      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "base-shortcrust" },
-      { "name": "Krem waniliowy", "amount": 300, "unit": "g", "recipeId": "base-cream-vanilla" },
+      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "baseshortcrust" },
+      { "name": "Krem waniliowy", "amount": 300, "unit": "g", "recipeId": "basecreamvanilla" },
       { "name": "Owoce świeże", "amount": 250, "unit": "g" }
     ]
   },
   {
     "name": "Kremówka",
-    "recipeId": "dessert-kremowka",
+    "recipeId": "dessertkremowka",
     "defaultWeight": 900,
     "ingredients": [
       { "name": "Ciasto francuskie", "amount": 300, "unit": "g" },
-      { "name": "Krem waniliowy", "amount": 500, "unit": "g", "recipeId": "base-cream-vanilla" }
+      { "name": "Krem waniliowy", "amount": 500, "unit": "g", "recipeId": "basecreamvanilla" }
     ]
   },
   {
     "name": "Ciasto marchewkowe",
-    "recipeId": "dessert-carrot-cake",
+    "recipeId": "dessertcarrotcake",
     "defaultWeight": 1000,
     "ingredients": [
       { "name": "Marchew", "amount": 250, "unit": "g" },
@@ -184,18 +184,18 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Makaronik waniliowy",
-    "recipeId": "dessert-macaron-vanilla",
+    "recipeId": "dessertmacaronvanilla",
     "defaultWeight": 40,
     "ingredients": [
       { "name": "Białka", "amount": 30, "unit": "g" },
       { "name": "Cukier puder", "amount": 40, "unit": "g" },
       { "name": "Mąka migdałowa", "amount": 40, "unit": "g" },
-      { "name": "Krem waniliowy", "amount": 10, "unit": "g", "recipeId": "base-cream-vanilla" }
+      { "name": "Krem waniliowy", "amount": 10, "unit": "g", "recipeId": "basecreamvanilla" }
     ]
   },
   {
     "name": "Suflet czekoladowy",
-    "recipeId": "dessert-choco-souffle",
+    "recipeId": "dessertchocosouffle",
     "defaultWeight": 150,
     "ingredients": [
       { "name": "Czekolada 70%", "amount": 50, "unit": "g" },
@@ -206,10 +206,10 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Tarta słona karmelowa",
-    "recipeId": "dessert-salted-caramel-tart",
+    "recipeId": "dessertsaltedcarameltart",
     "defaultWeight": 900,
     "ingredients": [
-      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "base-shortcrust" },
+      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "baseshortcrust" },
       { "name": "Cukier", "amount": 150, "unit": "g" },
       { "name": "Śmietanka 30%", "amount": 150, "unit": "ml" },
       { "name": "Masło", "amount": 60, "unit": "g" },
@@ -218,22 +218,22 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Babeczki waniliowe",
-    "recipeId": "dessert-vanilla-cupcakes",
+    "recipeId": "dessertvanillacupcakes",
     "defaultWeight": 400,
     "ingredients": [
       { "name": "Mąka pszenna", "amount": 160, "unit": "g" },
       { "name": "Cukier", "amount": 120, "unit": "g" },
       { "name": "Masło", "amount": 80, "unit": "g" },
       { "name": "Jajka", "amount": 100, "unit": "g" },
-      { "name": "Krem waniliowy", "amount": 80, "unit": "g", "recipeId": "base-cream-vanilla" }
+      { "name": "Krem waniliowy", "amount": 80, "unit": "g", "recipeId": "basecreamvanilla" }
     ]
   },
   {
     "name": "Tarta pistacjowa",
-    "recipeId": "dessert-pistachio-tart",
+    "recipeId": "dessertpistachiotart",
     "defaultWeight": 950,
     "ingredients": [
-      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "base-shortcrust" },
+      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "baseshortcrust" },
       { "name": "Pasta pistacjowa", "amount": 100, "unit": "g" },
       { "name": "Śmietanka 30%", "amount": 200, "unit": "ml" },
       { "name": "Cukier", "amount": 80, "unit": "g" },
@@ -242,17 +242,17 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Monoporcja malinowa",
-    "recipeId": "dessert-raspberry-monop",
+    "recipeId": "dessertraspberrymonop",
     "defaultWeight": 180,
     "ingredients": [
-      { "name": "Biszkopt", "amount": 40, "unit": "g", "recipeId": "base-sponge" },
+      { "name": "Biszkopt", "amount": 40, "unit": "g", "recipeId": "basesponge" },
       { "name": "Maliny", "amount": 60, "unit": "g" },
-      { "name": "Krem waniliowy", "amount": 60, "unit": "g", "recipeId": "base-cream-vanilla" }
+      { "name": "Krem waniliowy", "amount": 60, "unit": "g", "recipeId": "basecreamvanilla" }
     ]
   },
   {
     "name": "Ciasto jogurtowe",
-    "recipeId": "dessert-yogurt-cake",
+    "recipeId": "dessertyogurtcake",
     "defaultWeight": 900,
     "ingredients": [
       { "name": "Jogurt naturalny", "amount": 200, "unit": "g" },
@@ -264,17 +264,17 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Czekoladowa rolada",
-    "recipeId": "dessert-choco-roll",
+    "recipeId": "dessertchocoroll",
     "defaultWeight": 1000,
     "ingredients": [
-      { "name": "Biszkopt", "amount": 300, "unit": "g", "recipeId": "base-sponge" },
-      { "name": "Ganache czekoladowy", "amount": 300, "unit": "g", "recipeId": "base-ganache" },
+      { "name": "Biszkopt", "amount": 300, "unit": "g", "recipeId": "basesponge" },
+      { "name": "Ganache czekoladowy", "amount": 300, "unit": "g", "recipeId": "baseganache" },
       { "name": "Dżem malinowy", "amount": 100, "unit": "g" }
     ]
   },
   {
     "name": "Mus czekoladowy",
-    "recipeId": "dessert-choco-mousse",
+    "recipeId": "dessertchocomousse",
     "defaultWeight": 300,
     "ingredients": [
       { "name": "Czekolada 70%", "amount": 120, "unit": "g" },
@@ -284,10 +284,10 @@ export const MockOfRecipes: Recipe[] = [
   },
   {
     "name": "Tarta mango",
-    "recipeId": "dessert-mango-tart",
+    "recipeId": "dessertmangotart",
     "defaultWeight": 900,
     "ingredients": [
-      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "base-shortcrust" },
+      { "name": "Kruche ciasto", "amount": 350, "unit": "g", "recipeId": "baseshortcrust" },
       { "name": "Puree mango", "amount": 200, "unit": "g" },
       { "name": "Śmietanka 30%", "amount": 150, "unit": "ml" },
       { "name": "Cukier", "amount": 80, "unit": "g" },

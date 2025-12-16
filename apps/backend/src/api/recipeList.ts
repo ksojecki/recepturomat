@@ -1,9 +1,11 @@
 import { ApiResponse, RecipeListEntry } from '@recepturomat/data-model';
-import { MockOfRecipes } from '../mock';
+import { dataModel } from '../dataModel/dataModel';
 
-export const getRecipeList = (): ApiResponse<RecipeListEntry[]> => {
+export const getRecipeList = async (): Promise<ApiResponse<RecipeListEntry[]>> => {
+  const recipes = await dataModel.recipes.find().toArray();
+
   return {
     type: 'success',
-    data: MockOfRecipes.map(q => ({ name: q.name, recipeId: q.recipeId }))
+    data: recipes.map(q => ({ name: q.name, recipeId: q.recipeId }))
   };
 };

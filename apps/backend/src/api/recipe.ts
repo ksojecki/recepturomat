@@ -1,8 +1,10 @@
 import { ApiResponse, Recipe } from '@recepturomat/data-model';
-import { MockOfRecipes } from '../mock';
+import { dataModel } from '../dataModel/dataModel';
 
-export const getRecipe = (id: string): ApiResponse<Recipe> => {
-  const recipe = MockOfRecipes.find(q => q.recipeId === id)
+export const getRecipe = async (recipeId: string): Promise<ApiResponse<Recipe>> => {
+  const recipe = await dataModel.recipes.findOne({recipeId});
+  console.log(recipe);
+
   if (!recipe) {
     return {
       type: 'error',

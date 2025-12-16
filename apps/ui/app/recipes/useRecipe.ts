@@ -17,8 +17,8 @@ const isAlteredRecipe = (value: unknown): value is AlteredRecipe => {
 }
 
 export const useRecalculatedRecipe = (id: string | undefined) => {
-  const recipeQueryResult = useRecipe(id);
-  const recipe = recipeQueryResult.data;
+  const { record, deleteRecord } = useRecipe(id);
+  const recipe = record.data;
 
   const [value, dispatch] = useReducer((previous: RecipeState | undefined, action: Action) => {
     if(action.type === 'reset' ||
@@ -68,6 +68,7 @@ export const useRecalculatedRecipe = (id: string | undefined) => {
 
   return {
     recipe: isAlteredRecipe(value) ? value : undefined,
+    deleteRecord,
     reset: useCallback(() =>
       dispatch({ type: 'reset' }),
       [dispatch]),

@@ -80,6 +80,7 @@ export const AuthenticationProvider = ({
         query<AuthenticationResponse, AuthCredentials | null>({
           endpoint: 'authentication/get-token',
           body: authenticationState.credentials,
+          method: 'POST',
         }).then((response) => {
           if (response.type === 'success') {
             dispatcher({ type: 'authResponse', response });

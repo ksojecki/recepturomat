@@ -7,10 +7,15 @@ export const useRecipe = (id: string | undefined) => {
   const { token } = useAuthentication();
   const { queryFn } = useResponseChecker<Recipe>(`recipe/${id}`);
 
-  return useQuery<Recipe | undefined>({
-    queryKey: ['recipe', id],
-    queryFn,
-    enabled: !!token && !!id,
-    staleTime: Infinity,
-  });
+  return {
+    record: useQuery<Recipe | undefined>({
+      queryKey: ['recipe', id],
+      queryFn,
+      enabled: !!token && !!id,
+      staleTime: Infinity,
+    }),
+    deleteRecord: () => {
+      return;
+    }
+  };
 }

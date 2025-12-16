@@ -8,6 +8,7 @@ import cors from 'cors';
 import { useErrorHandler } from './api/errorHandler';
 import { getRecipeList } from './api/recipeList';
 import { getRecipe } from './api/recipe';
+import { ApiResponse } from '@recepturomat/data-model';
 
 const app = express();
 
@@ -16,12 +17,21 @@ app.use(useErrorHandler);
 app.use(express.json());
 
 app.use('/api/authentication', authentication);
-app.get('/api/recipe/list', useAuthentication, (req, res) => {
-  res.json(getRecipeList());
+app.get('/api/recipe/list', useAuthentication, async (req, res) => {
+  const recipes = await getRecipeList();
+  res.json(recipes);
 });
 
-app.get('/api/recipe/:id', useAuthentication, (req, res) => {
-  res.json(getRecipe(req.params.id));
+app.get('/api/recipe/:id', useAuthentication, async (req, res) => {
+  const recipe = await getRecipe(req.params.id);
+  res.json(recipe);
+});
+
+app.delete('/api/recipe/:id', useAuthentication, async (req, res) => {
+  res.json({
+    type: 'success',
+    data: undefined,
+  } satisfies ApiResponse<undefined>);
 });
 
 const port = process.env.PORT || 3333;

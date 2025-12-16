@@ -22,7 +22,7 @@ export function RecipesListPage() {
       );
     }
     return data.sort((a, b) => a.name.localeCompare(b.name));
-  }, [data, isSuccess, searchQuery]);
+  }, [data, isSuccess, searchQuery, searchQuery.length]);
 
   if (error) {
     return <ErrorMessage error={error} />;

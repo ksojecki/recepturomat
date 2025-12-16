@@ -8,7 +8,7 @@ export const useRecipesList = () => {
   const { queryFn } = useResponseChecker<RecipeListEntry[]>(`recipe/list`);
 
   return useQuery<RecipeListEntry[] | undefined>({
-    queryKey: ['recipe', 'list'],
+    queryKey: ['recipe'],
     queryFn,
     enabled: !!token
   });

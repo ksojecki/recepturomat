@@ -7,8 +7,7 @@ import * as fs from 'node:fs';
 import cors from 'cors';
 import { useErrorHandler } from './api/errorHandler';
 import { getRecipeList } from './api/recipeList';
-import { getRecipe } from './api/recipe';
-import { ApiResponse } from '@recepturomat/data-model';
+import { deleteRecipe, getRecipe } from './api/recipe';
 
 const app = express();
 
@@ -28,10 +27,8 @@ app.get('/api/recipe/:id', useAuthentication, async (req, res) => {
 });
 
 app.delete('/api/recipe/:id', useAuthentication, async (req, res) => {
-  res.json({
-    type: 'success',
-    data: undefined,
-  } satisfies ApiResponse<undefined>);
+  const deleteResult = await deleteRecipe(req.params.id);
+  res.json(deleteResult);
 });
 
 const port = process.env.PORT || 3333;

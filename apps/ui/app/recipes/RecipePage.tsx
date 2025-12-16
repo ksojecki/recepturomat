@@ -22,7 +22,7 @@ type AlteredWeight = {
 export const RecipePage = () => {
   const { recipeId } = useParams();
   const navigate= useNavigate();
-  const { recipe, setNewWeight, reset } = useRecalculatedRecipe(recipeId);
+  const { recipe, setNewWeight, reset, deleteRecord } = useRecalculatedRecipe(recipeId);
 
   const { register, watch, setValue } = useForm<AlteredWeight>({
     defaultValues: {
@@ -47,9 +47,11 @@ export const RecipePage = () => {
           <Button onClick={() => navigate(-1)}><FaArrowLeft /></Button>
           <Link className={'btn'} to='/' ><FaArrowUp /></Link>
           <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} g</h1>
-          <button className="btn btn-success join-item">Drukuj<FaPrint /></button>
-          <button className="btn join-item">Edytuj<FaEdit /></button>
-          <button className="btn join-item">Usuń<FaTrash /></button>
+          <Button className="btn-success join-item">Drukuj<FaPrint /></Button>
+          <Button className="join-item">Edytuj<FaEdit /></Button>
+          <Button className="join-item" onClick={() =>
+            deleteRecord.mutateAsync().then(() => navigate('/'))
+          }>Usuń<FaTrash /></Button>
         </div>
         <div className="flex flex-col space-y-2">
           <div className="join w-full">

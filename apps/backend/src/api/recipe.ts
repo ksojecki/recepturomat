@@ -18,3 +18,11 @@ export const getRecipe = async (recipeId: string): Promise<ApiResponse<Recipe>> 
     data: recipe
   }
 };
+
+export const deleteRecipe = async (recipeId: string): Promise<ApiResponse<undefined>> => {
+  await dataModel.recipes.deleteOne({recipeId});
+  return {
+    type: 'success',
+    data: undefined
+  }
+};

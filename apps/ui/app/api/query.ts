@@ -3,10 +3,10 @@ const API_URL = 'https://localhost:3333/api';
 type QueryParams<TPayload> = {
   endpoint: string;
   body?: TPayload;
-  apiToken?: string | null;
+  apiToken?: string;
 };
 
-export const query = async <TResponse, TPayload>({
+export const query = async <TResponse, TPayload = undefined>({
   body,
   endpoint,
   apiToken,

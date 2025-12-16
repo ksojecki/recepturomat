@@ -3,6 +3,7 @@ export type Success<T> = { type: 'success'; data: T };
 export type UnauthorizedError = {
   type: 'error';
   error: 'unauthorized';
+  reason: 'invalid-token' | 'missing-token';
   message: string;
 };
 export type ServerError = {

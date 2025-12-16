@@ -1,25 +1,15 @@
 import { useQuery, } from '@tanstack/react-query';
-import { query } from './query';
-import { ApiResponse, Recipe } from '@recepturomat/data-model';
+import { Recipe } from '@recepturomat/data-model';
 import { useAuthentication } from './authentication';
+import { useResponseChecker } from './useResponseChecker';
 
 export const useRecipe = (id: string | undefined) => {
   const { token } = useAuthentication();
+  const { queryFn } = useResponseChecker<Recipe>(`recipe/${id}`);
 
-  return useQuery<Recipe>({
+  return useQuery<Recipe | undefined>({
     queryKey: ['recipe', id],
-    queryFn: async () => {
-      const result = await query<ApiResponse<Recipe>, undefined>({
-        endpoint: `recipe/${id}`,
-        apiToken: token,
-      });
-
-      if(result.type === 'error') {
-        throw result;
-      }
-
-      return result.data;
-    },
+    queryFn,
     enabled: !!token && !!id,
     staleTime: Infinity,
   });

@@ -68,6 +68,7 @@ export const useAuthentication: Handler = (request, res, next) => {
     res.status(401).json({
       type: 'error',
       error: 'unauthorized',
+      reason: 'missing-token',
       message: 'Missing token',
     } satisfies UnauthorizedError);
     return;
@@ -82,6 +83,7 @@ export const useAuthentication: Handler = (request, res, next) => {
     res.status(401).json({
       type: 'error',
       error: 'unauthorized',
+      reason: 'invalid-token',
       message: 'Invalid token',
     } satisfies UnauthorizedError);
     console.error(error);

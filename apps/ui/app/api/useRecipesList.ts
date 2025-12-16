@@ -1,25 +1,15 @@
 import { useQuery, } from '@tanstack/react-query';
-import { query } from './query';
-import { ApiResponse, RecipeListEntry } from '@recepturomat/data-model';
+import { RecipeListEntry } from '@recepturomat/data-model';
 import { useAuthentication } from './authentication';
+import { useResponseChecker } from './useResponseChecker';
 
 export const useRecipesList = () => {
   const { token } = useAuthentication();
+  const { queryFn } = useResponseChecker<RecipeListEntry[]>(`recipe/list`);
 
-  return useQuery<RecipeListEntry[]>({
+  return useQuery<RecipeListEntry[] | undefined>({
     queryKey: ['recipe', 'list'],
-    queryFn: async () => {
-      const result = await query<ApiResponse<RecipeListEntry[]>, undefined>({
-        endpoint: 'recipe/list',
-        apiToken: token,
-      });
-
-      if(result.type === 'error') {
-        throw result;
-      }
-
-      return result.data;
-    },
+    queryFn,
     enabled: !!token
   });
 }

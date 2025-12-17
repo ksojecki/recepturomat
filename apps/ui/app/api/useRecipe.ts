@@ -14,7 +14,7 @@ export const useRecipe = (id: string | undefined) => {
       await query<undefined>({method: 'DELETE', endpoint: `recipe/${id}`, apiToken: token});
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['recipe'] });
+      await queryClient.refetchQueries({ queryKey: ['recipe'] });
     }
 
   });

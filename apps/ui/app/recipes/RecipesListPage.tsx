@@ -1,28 +1,20 @@
 import { RecipeList } from './components';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Loading } from '@ui/loading';
-import { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
+import { ChangeEventHandler, useCallback, useState } from 'react';
 import { Button } from '@ui/forms/Button';
 import { FaCircleXmark, FaFileLines } from 'react-icons/fa6';
 import { useRecipesList } from '../api/useRecipesList';
+import { RecipeListEntry } from '@recepturomat/data-model';
+
+const EMPTY_RECIPE_LIST: RecipeListEntry[] = [];
 
 export function RecipesListPage() {
-  const { data, error, isSuccess, isLoading } = useRecipesList();
   const [searchQuery, setSearchQuery] = useState('');
-
+  const { data, error, isLoading } = useRecipesList(searchQuery.length > 0 ? searchQuery : undefined);
   const update: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setSearchQuery(event.target.value);
   }, []);
-
-  const filteredList = useMemo(() => {
-    if (!isSuccess || !data) return [];
-    if (searchQuery.length > 0) {
-      return data.filter((recipe) =>
-        recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-    return data.sort((a, b) => a.name.localeCompare(b.name));
-  }, [data, isSuccess, searchQuery, searchQuery.length]);
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -53,7 +45,7 @@ export function RecipesListPage() {
           </Button>
         </div>
       </div>
-      <RecipeList recipeList={filteredList} />
+      <RecipeList recipeList={data || EMPTY_RECIPE_LIST} />
     </>
   );
 }

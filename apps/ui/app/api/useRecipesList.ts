@@ -3,13 +3,19 @@ import { RecipeListEntry } from '@recepturomat/data-model';
 import { useAuthentication } from './authentication';
 import { useResponseChecker } from './useResponseChecker';
 
-export const useRecipesList = () => {
+export const useRecipesList = (searchString?: string) => {
   const { token } = useAuthentication();
   const { queryFn } = useResponseChecker<RecipeListEntry[]>(`recipe/list`);
 
   return useQuery<RecipeListEntry[] | undefined>({
     queryKey: ['recipe'],
     queryFn,
+    select: (data) => {
+      if(data === undefined) return undefined;
+      const sorted = data.sort((a, b) => a.name.localeCompare(b.name));
+      if(searchString) return sorted.filter(recipe => recipe.name.includes(searchString));
+      return sorted;
+    },
     enabled: !!token
   });
 }

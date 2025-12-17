@@ -1,14 +1,14 @@
 import { useQuery, } from '@tanstack/react-query';
 import { RecipeListEntry } from '@recepturomat/data-model';
 import { useAuthentication } from './authentication';
-import { useResponseChecker } from './useResponseChecker';
+import { useApiCall } from './useApiCall';
 
 export const useRecipesList = (searchString?: string) => {
   const { token } = useAuthentication();
-  const { queryFn } = useResponseChecker<RecipeListEntry[]>(`recipe/list`);
+  const { queryFn } = useApiCall<RecipeListEntry[]>(`recipe/list`);
 
   return useQuery<RecipeListEntry[] | undefined>({
-    queryKey: ['recipe'],
+    queryKey: ['recipe', 'list'],
     queryFn,
     select: (data) => {
       if(data === undefined) return undefined;

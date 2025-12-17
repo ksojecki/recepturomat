@@ -3,7 +3,7 @@ import { query } from './query';
 import { useAuthentication } from './authentication';
 import { useCallback } from 'react';
 
-export const useResponseChecker = <T>(endpoint: string) => {
+export const useApiCall = <T>(endpoint: string) => {
   const { token, logout } = useAuthentication();
   const queryFn = useCallback(async () => {
     const result = await query<ApiResponse<T>>({

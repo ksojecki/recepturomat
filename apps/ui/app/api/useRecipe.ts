@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Recipe } from '@recepturomat/data-model';
 import { useAuthentication } from './authentication';
-import { useResponseChecker } from './useResponseChecker';
+import { useApiCall } from './useApiCall';
 import { query } from './query';
 
 export const useRecipe = (id: string | undefined) => {
   const { token } = useAuthentication();
-  const { queryFn } = useResponseChecker<Recipe>(`recipe/${id}`);
+  const { queryFn } = useApiCall<Recipe>(`recipe/${id}`);
   const queryClient = useQueryClient()
   const deleteRecord = useMutation({
     mutationKey: ['recipe', id],
@@ -14,10 +14,11 @@ export const useRecipe = (id: string | undefined) => {
       await query<undefined>({method: 'DELETE', endpoint: `recipe/${id}`, apiToken: token});
     },
     onSuccess: async () => {
-      await queryClient.refetchQueries({ queryKey: ['recipe'] });
+      await queryClient.invalidateQueries({ queryKey: ['recipe', 'list'] });
+      await queryClient.setQueryData(['recipe', id], undefined);
     }
-
   });
+
   return {
     record: useQuery<Recipe | undefined>({
       queryKey: ['recipe', id],

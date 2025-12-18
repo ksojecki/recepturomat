@@ -4,7 +4,7 @@ import { z } from 'zod';
 export type RecipeListEntry = Pick<Recipe, 'name' | 'recipeId'>;
 
 export const RecipeSchema = z.object({
-  name: z.string(),
+  name: z.string().nonempty(),
   recipeId: z.string(),
   ingredients: z.array(IngredientSchema),
   defaultWeight: z.number(),

@@ -8,12 +8,13 @@ import {
   FaTrash,
 } from 'react-icons/fa';
 import { useRecalculatedRecipe } from './useRecipe';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { Button } from '@ui/forms/Button';
 import { Loading } from '@ui/loading';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Recipe, RecipeSchema } from '@recepturomat/data-model';
 import { FaCircleXmark } from 'react-icons/fa6';
+import { NestedIngredientList } from './components/NestedIngredientList';
 
 
 export const RecipePage = () => {
@@ -24,13 +25,17 @@ export const RecipePage = () => {
   const { register, control, formState } = useForm<Recipe>({
     resolver: zodResolver(RecipeSchema),
     values: recipe,
-    reValidateMode: 'onBlur'
+    reValidateMode: 'onBlur',
   });
 
   const { fields, append, remove, move } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormProvider)
     name: 'ingredients', // unique name for your Field Array
   });
+
+  const ingredients = useWatch({ control, name: 'ingredients' });
+
+  console.log(formState.errors)
 
   if (!recipe) return (<Loading />);
   return (
@@ -53,11 +58,11 @@ export const RecipePage = () => {
       </div>
       <ul className="list bg-base-100 rounded-box shadow-md">
         <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">
-          Przeliczony przepis
+          Przepis
         </li>
         {fields.map((field, index) => (
           <li className={`list-row ${field.recipeId ? 'bg-base-200' : 'bg-base-100'}`} key={field.name}>
-            <div className="list-col-grow space-x-4">
+            <div className="list-col-grow space-x-4 space-y-4">
               <label className="input ">
                 <span className="label">Składnik</span>
                 <input {...register(`ingredients.${index}.name`)} placeholder="Składnik" />
@@ -71,15 +76,18 @@ export const RecipePage = () => {
                   <option value={'ml'}>ml</option>
                 </select>
               </label>
+              <div>
+                {ingredients[index].recipeId !== undefined && <NestedIngredientList recipeId={ingredients[index].recipeId} requiredWeight={ingredients[index].amount} /> }
+              </div>
             </div>
             <div className='list-col join'>
               <button className={'btn join-item'} onClick={() => {
-                if(index > 1 && formState.isValid) {
+                if(index > 0) {
                   move(index, index - 1);
                 }
               }}><FaArrowUp/></button>
               <button className={'btn join-item'} onClick={() => {
-                if(index < fields.length - 1 && formState.isValid) {
+                if(index < fields.length - 1) {
                   move(index, index + 1);
                 }
               }}><FaArrowDown/></button>

@@ -1,8 +1,9 @@
-export type Ingredient = {
-  name: string;
-  amount: number;
-  unit: 'g' | 'ml' | 'pcs';
-  recipeId?: string;
-};
+import { z } from 'zod';
 
-export type IngredientListEntry = Pick<Ingredient, 'name' | 'unit'>;
+export const IngredientSchema = z.object({
+  name: z.string(),
+  amount: z.number(),
+  unit: z.literal(['g', 'ml', 'pcs']),
+})
+
+export type Ingredient = z.infer<typeof IngredientSchema>;

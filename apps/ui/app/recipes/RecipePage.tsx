@@ -48,7 +48,9 @@ export const RecipePage = () => {
           <Link className={'btn'} to='/' ><FaArrowUp /></Link>
           <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} g</h1>
           <Button className="btn-success join-item">Drukuj<FaPrint /></Button>
-          <Button className="join-item">Edytuj<FaEdit /></Button>
+          <Link className="btn join-item" to={{
+            pathname: `/recipe/${recipeId}/edit`,
+          }}>Edytuj<FaEdit /></Link>
           <Button className="join-item" onClick={() =>
             deleteRecord.mutateAsync().then(() => navigate('/'))
           }>Usuń<FaTrash /></Button>

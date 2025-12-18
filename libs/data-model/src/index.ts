@@ -15,4 +15,7 @@ export type {
 export type { Recipe, RecipeListEntry } from './lib/types/recipe';
 export type { Ingredient } from './lib/types/ingredient';
 
+export { RecipeSchema } from './lib/types/recipe'
+export { IngredientSchema } from './lib/types/ingredient'
+
 export { isUnauthorized } from './lib/checkers';

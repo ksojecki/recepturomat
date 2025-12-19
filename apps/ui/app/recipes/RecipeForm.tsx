@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Recipe, RecipeSchema } from '@recepturomat/data-model';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { NestedIngredientList } from './components/NestedIngredientList';
+import { useRecipesList } from '../api/useRecipesList';
 
 
 export const RecipePage = () => {
@@ -22,10 +23,16 @@ export const RecipePage = () => {
   const navigate= useNavigate();
   const { recipe } = useRecalculatedRecipe(recipeId);
 
-  const { register, control, setValue, formState } = useForm<Recipe>({
+  const { isSuccess, data } = useRecipesList();
+
+  const { register, control, setValue, handleSubmit } = useForm<Recipe>({
     resolver: zodResolver(RecipeSchema),
     values: recipe,
     reValidateMode: 'onBlur',
+  });
+
+  const handler = handleSubmit((data) => {
+    console.log(data);
   });
 
   const { fields, append, remove, move } = useFieldArray({
@@ -35,10 +42,9 @@ export const RecipePage = () => {
 
   const ingredients = useWatch({ control, name: 'ingredients' });
 
-  console.log(formState.errors)
-
   if (!recipe) return (<Loading />);
   return (
+    <form onSubmit={handler}>
     <div className="m-4">
       <div className="flex flex-col pb-4">
         <div className="flex flex-row space-x-1">
@@ -57,7 +63,7 @@ export const RecipePage = () => {
             Anuluj
             <FaCircleXmark />
           </Link>
-          <Button className="btn btn-success join-item">
+          <Button type="submit" className="btn btn-success join-item" >
             Zapisz
             <FaSave />
           </Button>
@@ -101,7 +107,6 @@ export const RecipePage = () => {
               </label>
               <label className="label">
                 Przepis
-                {/* Controlled checkbox: checked when recipeId is a (non-undefined) string. */}
                 <input
                   type={"checkbox"}
                   className={"input-checkbox"}
@@ -127,17 +132,16 @@ export const RecipePage = () => {
                   <select
                     className="input join-item flex-grow"
                     {...register(`ingredients.${index}.recipeId`, {
-                      setValueAs: (value) =>
-                        value === '' ? undefined : value,
+                      disabled: !isSuccess
                     })}
                   >
                     <option value={'SELECT'}>Wybierz przepis</option>
-                    <option value={'basesponge'}>sztuk</option>
+                    { data?.map((recipe) => <option key={recipe.recipeId} value={recipe.recipeId}>{recipe.name}</option>) }
                   </select>
                   <button className="btn join-item"><FaArrowDown /></button>
                 </div>
 
-                {!!ingredients?.[index]?.recipeId && ingredients?.[index]?.recipeId !== '' && (
+                {ingredients?.[index]?.recipeId !== 'SELECT' && (
                   <NestedIngredientList
                     recipeId={ingredients[index].recipeId}
                     requiredWeight={ingredients[index].amount}
@@ -196,6 +200,7 @@ export const RecipePage = () => {
         </li>
       </ul>
     </div>
+    </form>
   );
 };
 

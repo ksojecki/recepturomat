@@ -12,11 +12,15 @@
     "rootDir": "app",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "paths": {
       "@ui/*": ["./app/ui/*"]
     }
   },
   "include": [
+    "vite.config.ts",
+    "react-router.config.ts",
     "app/**/*.ts",
     "app/**/*.tsx",
     "app/**/*.js",

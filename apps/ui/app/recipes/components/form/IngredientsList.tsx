@@ -6,7 +6,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { Recipe } from '@recepturomat/data-model';
-import { IngredientItem } from './IngredientItem';
+import { IngredientItem } from './IngredientItem.tsx';
 
 interface IngredientsListProps {
   control: Control<Recipe>;

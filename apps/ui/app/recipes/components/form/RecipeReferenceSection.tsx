@@ -1,7 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 import { Recipe } from '@recepturomat/data-model';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-import { NestedIngredientList } from './NestedIngredientList';
+import { NestedIngredientList } from '../NestedIngredientList.tsx';
 import { useState } from 'react';
 
 interface RecipeReferenceSectionProps {

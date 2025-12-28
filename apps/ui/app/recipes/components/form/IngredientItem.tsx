@@ -1,8 +1,8 @@
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { Recipe, Ingredient } from '@recepturomat/data-model';
-import { RecipeCheckbox } from './RecipeCheckbox';
-import { RecipeReferenceSection } from './RecipeReferenceSection';
-import { IngredientActions } from './IngredientActions';
+import { RecipeCheckbox } from './RecipeCheckbox.tsx';
+import { RecipeReferenceSection } from './RecipeReferenceSection.tsx';
+import { IngredientActions } from './IngredientActions.tsx';
 
 interface IngredientItemProps {
   ingredient: Ingredient;

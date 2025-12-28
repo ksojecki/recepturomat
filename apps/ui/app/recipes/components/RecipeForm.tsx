@@ -1,7 +1,7 @@
 import { useRecipesList } from '../../api/useRecipesList.ts';
-import { RecipeHeader } from './RecipeHeader.tsx';
-import { RecipeWeightSection } from './RecipeWeightSection.tsx';
-import { IngredientsList } from './IngredientsList.tsx';
+import { RecipeHeader } from './form/RecipeHeader.tsx';
+import { RecipeWeightSection } from './form/RecipeWeightSection.tsx';
+import { IngredientsList } from './form/IngredientsList.tsx';
 import { useRecipeForm } from '../hooks/useRecipeForm.ts';
 import { Recipe } from '@recepturomat/data-model';
 

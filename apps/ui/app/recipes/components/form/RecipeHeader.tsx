@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router';
 import { FaArrowLeft, FaArrowUp, FaFloppyDisk, FaCircleXmark } from 'react-icons/fa6';
 import { UseFormRegister } from 'react-hook-form';
 import { Recipe } from '@recepturomat/data-model';
-import { Button } from '@ui/forms/Button';
+import { Button } from '@ui/forms/Button.tsx';
 
 interface RecipeHeaderProps {
   recipeId: string | undefined;

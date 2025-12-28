@@ -3,9 +3,11 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { Loading } from '@ui/loading';
 import { ChangeEventHandler, useCallback, useState } from 'react';
 import { Button } from '@ui/forms/Button';
-import { FaCircleXmark, FaFileLines } from 'react-icons/fa6';
+import { FaCircleXmark } from 'react-icons/fa6';
 import { useRecipesList } from '../api/useRecipesList';
 import { RecipeListEntry } from '@recepturomat/data-model';
+import { FaPlusCircle } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const EMPTY_RECIPE_LIST: RecipeListEntry[] = [];
 
@@ -26,10 +28,10 @@ export function RecipesListPage() {
       <div className="flex flex-col m-4 pb-4">
         <div className="flex">
           <h1 className="text-3xl pb-4 font-bold flex-grow">Receptury</h1>
-          <Button className="join-item">
+          <Link to={'recipe/new'} className="btn join-item">
             Dodaj przepis
-            <FaFileLines />
-          </Button>
+            <FaPlusCircle />
+          </Link>
         </div>
 
         <div className="join w-full">

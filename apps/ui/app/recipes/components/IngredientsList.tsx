@@ -56,9 +56,9 @@ export function IngredientsList({
             onClick={() => {
               append({
                 name: '',
-                amount: 0,
-                unit: 'g',
-              });
+                amount: 1000,
+                unit: 'g'
+              }, { shouldFocus: true});
             }}
           >
             Nowy składnik

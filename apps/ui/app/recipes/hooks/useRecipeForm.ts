@@ -7,6 +7,12 @@ export function useRecipeForm(recipe: Recipe | undefined) {
     resolver: zodResolver(RecipeSchema),
     values: recipe,
     reValidateMode: 'onBlur',
+    defaultValues: {
+      recipeId: 'new',
+      defaultWeight: 1000,
+      name: '',
+      ingredients: []
+    }
   });
 
   const onSubmit = handleSubmit((data) => {

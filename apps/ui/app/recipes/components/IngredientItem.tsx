@@ -29,6 +29,9 @@ export function IngredientItem({
   onMoveDown,
   onRemove,
 }: IngredientItemProps) {
+  if(ingredient === undefined) {
+    return null;
+  }
   const isRecipeLinked =
     !!ingredient?.recipeId && ingredient?.recipeId !== '';
 

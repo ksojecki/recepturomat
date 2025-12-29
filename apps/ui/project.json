@@ -12,7 +12,8 @@
     "build": {
       "executor": "@nx/vite:build",
       "options": {
-        "configFile": "apps/ui/vite.config.ts"
+        "configFile": "apps/ui/vite.config.ts",
+        "outputPath": "dist/apps/ui"
       }
     },
     "dev": {

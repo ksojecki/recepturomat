@@ -2,8 +2,6 @@
  * Tests for query utility function.
  * Tests HTTP request handling, error scenarios, and different HTTP methods.
  */
-
-import { beforeEach } from 'node:test';
 import { query } from './query';
 
 // Mock fetch globally

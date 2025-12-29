@@ -4,26 +4,26 @@
  */
 import { query } from './query';
 
-// Mock fetch globally
-global.fetch = jest.fn();
+// Mock fetch globally using Vitest
+globalThis.fetch = vi.fn();
 
 describe('query', () => {
-  const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
+  const mockFetch = globalThis.fetch as unknown as ReturnType<typeof vi.fn>;
   const API_URL = 'https://localhost:3333/api';
 
   beforeEach(() => {
     // Clear all mocks before each test
-    mockFetch.mockClear();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe('GET requests', () => {
     it('should make a GET request without authentication', async () => {
       const mockResponse = { data: 'test' };
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -48,7 +48,7 @@ describe('query', () => {
       const mockResponse = { data: 'authenticated' };
       const apiToken = 'test-token-123';
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -67,14 +67,14 @@ describe('query', () => {
       );
 
       // Check if Authorization header was set
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       const headers = callArgs[1]?.headers as Headers;
       expect(headers.get('Authorization')).toBe(`Bearer ${apiToken}`);
     });
 
     it('should construct correct endpoint URL', async () => {
       const mockResponse = { id: 1 };
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -95,7 +95,7 @@ describe('query', () => {
       const mockResponse = { success: true };
       const requestBody = { name: 'New Recipe', ingredients: [] };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -119,7 +119,7 @@ describe('query', () => {
       const mockResponse = { id: 1 };
       const requestBody = { data: 'test' };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -129,7 +129,7 @@ describe('query', () => {
         body: requestBody,
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       const headers = callArgs[1]?.headers as Headers;
       expect(headers.get('Content-Type')).toBe('application/json');
     });
@@ -139,7 +139,7 @@ describe('query', () => {
       const apiToken = 'auth-token-456';
       const requestBody = { title: 'Test' };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -150,7 +150,7 @@ describe('query', () => {
         apiToken,
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       const headers = callArgs[1]?.headers as Headers;
       expect(headers.get('Authorization')).toBe(`Bearer ${apiToken}`);
       expect(headers.get('Content-Type')).toBe('application/json');
@@ -161,7 +161,7 @@ describe('query', () => {
     it('should make a DELETE request', async () => {
       const mockResponse = { deleted: true };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -184,7 +184,7 @@ describe('query', () => {
       const mockResponse = { success: true };
       const apiToken = 'delete-token-789';
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -194,7 +194,7 @@ describe('query', () => {
         apiToken,
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       const headers = callArgs[1]?.headers as Headers;
       expect(headers.get('Authorization')).toBe(`Bearer ${apiToken}`);
     });
@@ -203,10 +203,10 @@ describe('query', () => {
   describe('error handling', () => {
     it('should handle network errors', async () => {
       const networkError = new Error('Network failure');
-      mockFetch.mockRejectedValueOnce(networkError);
+      (mockFetch as any).mockRejectedValueOnce(networkError);
 
       // Mock console.error to avoid noise in test output
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       await expect(
         query<{ data: string }>({
@@ -225,9 +225,9 @@ describe('query', () => {
 
     it('should handle fetch errors and log them', async () => {
       const fetchError = new Error('Failed to fetch');
-      mockFetch.mockRejectedValueOnce(fetchError);
+      (mockFetch as any).mockRejectedValueOnce(fetchError);
 
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       await expect(
         query<{ data: string }>({
@@ -241,13 +241,13 @@ describe('query', () => {
     });
 
     it('should handle JSON parsing errors', async () => {
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => {
           throw new Error('Invalid JSON');
         },
       } as unknown as Response);
 
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       await expect(
         query<{ data: string }>({
@@ -263,7 +263,7 @@ describe('query', () => {
   describe('request options', () => {
     it('should always include CORS mode', async () => {
       const mockResponse = { data: 'test' };
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -272,14 +272,14 @@ describe('query', () => {
         method: 'GET',
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       expect(callArgs[1]?.mode).toBe('cors');
     });
 
 
     it('should set redirect to follow', async () => {
       const mockResponse = { data: 'test' };
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
@@ -288,22 +288,22 @@ describe('query', () => {
         method: 'GET',
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       expect(callArgs[1]?.redirect).toBe('follow');
     });
 
     it('should set referrerPolicy to no-referrer', async () => {
       const mockResponse = { data: 'test' };
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 
       await query<{ data: string }>({
-        endpoint: 'test',
+        endpoint: 'recipes',
         method: 'GET',
       });
 
-      const callArgs = mockFetch.mock.calls[0];
+      const callArgs = (mockFetch as any).mock.calls[0];
       expect(callArgs[1]?.referrerPolicy).toBe('no-referrer');
     });
   });
@@ -322,7 +322,7 @@ describe('query', () => {
         ingredients: ['flour', 'sugar'],
       };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockRecipe,
       } as Response);
 
@@ -358,7 +358,7 @@ describe('query', () => {
         success: true,
       };
 
-      mockFetch.mockResolvedValueOnce({
+      (mockFetch as any).mockResolvedValueOnce({
         json: async () => mockResponse,
       } as Response);
 

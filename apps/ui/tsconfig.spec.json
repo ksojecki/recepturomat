@@ -1,28 +1,28 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/jest",
+    "outDir": "./out-tsc/vitest",
     "jsx": "react-jsx",
     "types": [
-      "jest",
+      "vitest/globals",
       "node",
       "@testing-library/jest-dom",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "ES2015",
+    "moduleResolution": "bundler"
   },
   "files": ["src/test-setup.ts"],
   "include": [
-    "jest.config.ts",
+    "vite.config.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "src/**/*.d.ts",
+    "src/**/*.d.ts"
   ],
   "references": [
     {
       "path": "./tsconfig.app.json"
     }
-  ],
+  ]
 }

@@ -2,7 +2,11 @@
   "name": "@recepturomat/ui",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui"
+  },
   "sideEffects": false,
   "dependencies": {
     "@react-router/node": "^7.9.3",

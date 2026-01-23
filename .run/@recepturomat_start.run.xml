@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="@recepturomat/start" type="NxRunConfigurationType">
     <option name="nx-projects" value="ui,backend" />
-    <option name="nx-targets" value="serve,dev" />
+    <option name="nx-targets" value="serve" />
     <option name="nx-target-configuration" value="" />
     <envs />
     <option name="arguments" value="" />

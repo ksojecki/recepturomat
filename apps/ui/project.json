@@ -14,24 +14,48 @@
       "options": {
         "configFile": "apps/ui/vite.config.ts",
         "outputPath": "dist/apps/ui"
-      }
-    },
-    "dev": {
-      "executor": "@nx/vite:dev",
-      "options": {
-        "configFile": "apps/ui/vite.config.ts"
+      },
+      "configurations": {
+        "production": {
+          "buildOptions": {
+            "sourcemap": true,
+            "ssr": false
+          }
+        },
+        "dev": {
+          "buildOptions": {
+            "sourcemap": true,
+            "ssr": false,
+            "minify": false
+          }
+        }
       }
     },
     "serve": {
-      "executor": "@nx/vite:serve",
+      "executor": "@nx/vite:dev-server",
       "options": {
         "configFile": "apps/ui/vite.config.ts"
+      },
+      "defaultConfiguration": "dev",
+      "configurations": {
+        "production": {
+          "buildTarget": "@recepturomat/ui:build:production"
+        },
+        "dev": {
+          "buildTarget": "@recepturomat/ui:build:dev"
+        }
       }
     },
     "preview": {
-      "executor": "@nx/vite:preview",
+      "executor": "@nx/vite:preview-server",
       "options": {
         "configFile": "apps/ui/vite.config.ts"
+      },
+      "defaultConfiguration": "production",
+      "configurations": {
+        "production": {
+          "buildTarget": "@recepturomat/ui:build:production"
+        }
       }
     },
     "typecheck": {
@@ -42,4 +66,3 @@
     }
   }
 }
-

@@ -7,7 +7,7 @@
       "serve": {
         "continuous": true,
         "executor": "@nx/js:node",
-        "defaultConfiguration": "development",
+        "defaultConfiguration": "dev",
         "dependsOn": [
           "build"
         ],
@@ -16,8 +16,8 @@
           "runBuildTargetDependencies": false
         },
         "configurations": {
-          "development": {
-            "buildTarget": "@recepturomat/backend:build:development"
+          "dev": {
+            "buildTarget": "@recepturomat/backend:build:dev"
           },
           "production": {
             "buildTarget": "@recepturomat/backend:build:production"

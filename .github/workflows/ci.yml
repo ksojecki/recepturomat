@@ -13,7 +13,7 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,4 +44,14 @@ jobs:
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      - run: npx nx affected -t lint test build e2e
+      - name: Lint
+        run: npx nx affected -t lint
+
+      - name: Test
+        run: npx nx affected -t test
+
+      - name: Build
+        run: npx nx affected -t build
+
+      - name: E2E
+        run: npx nx affected -t e2e

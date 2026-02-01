@@ -14,6 +14,7 @@ export default defineConfig(() => ({
       key: '/Users/kamilsojecki/.local-dev-cert/dev.pem',
       cert: '/Users/kamilsojecki/.local-dev-cert/cert.pem',
     },
+    open: 'https://localhost:4200',
   },
   preview: {
     port: 4300,

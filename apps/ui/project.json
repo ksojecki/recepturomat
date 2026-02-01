@@ -34,7 +34,10 @@
     "serve": {
       "executor": "@nx/vite:dev-server",
       "options": {
-        "configFile": "apps/ui/vite.config.ts"
+        "configFile": "apps/ui/vite.config.ts",
+        "env": {
+          "BROWSER": "npx playwright open"
+        }
       },
       "defaultConfiguration": "dev",
       "configurations": {

@@ -3,6 +3,8 @@ import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const defaultTestReporter = ['default', { summary: false }];
+
 export default defineConfig(() => ({
   root: __dirname,
   base: '/',
@@ -45,7 +47,7 @@ export default defineConfig(() => ({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
-    reporter: process.env.GITHUB_ACTIONS ? ['github-actions'] : ['default'],
+    reporters: process.env.GITHUB_ACTIONS ? defaultTestReporter : ['github-actions', ...defaultTestReporter],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

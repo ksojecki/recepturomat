@@ -9,12 +9,11 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "app",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "module": "esnext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "noEmit": false,
     "paths": {
       "@ui/*": ["./app/ui/*"]
     }

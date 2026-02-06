@@ -28,8 +28,8 @@ export default defineConfig(() => ({
   },
   plugins: [
     tsconfigPaths(),
-    !process.env.VITEST && reactRouter(),
     tailwindcss(),
+    !process.env.VITEST && reactRouter(),
   ],
   // Uncomment this if you are using workers.
   // worker: {
@@ -40,14 +40,16 @@ export default defineConfig(() => ({
     transformMixedEsModules: true,
     outDir: '../../dist/apps/ui',
     reportCompressedSize: true,
+    ssr: false,
     commonjsOptions: { transformMixedEsModules: true },
   },
   // Add Vitest configuration
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/test-setup.ts'],
-    reporters: process.env.GITHUB_ACTIONS ? defaultTestReporter : ['github-actions', ...defaultTestReporter],
+    reporters: process.env.GITHUB_ACTIONS
+      ? defaultTestReporter
+      : ['github-actions', ...defaultTestReporter],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

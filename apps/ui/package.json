@@ -33,24 +33,15 @@
         }
       },
       "build": {
-        "executor": "@nx/vite:build",
+        "executor": "nx:run-commands",
         "options": {
-          "configFile": "apps/ui/vite.config.ts",
-          "outputPath": "dist/apps/ui"
+          "cwd": "apps/ui",
+          "command": "npx react-router build"
         },
         "configurations": {
           "production": {
-            "buildOptions": {
-              "sourcemap": true,
-              "ssr": false
-            }
           },
           "dev": {
-            "buildOptions": {
-              "sourcemap": true,
-              "ssr": false,
-              "minify": false
-            }
           }
         }
       },

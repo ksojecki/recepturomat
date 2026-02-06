@@ -8,6 +8,7 @@ import {
   type LinksFunction,
 } from 'react-router';
 import { Loading } from '@ui/loading';
+import "./styles.css";
 
 export const meta: MetaFunction = () => [
   {

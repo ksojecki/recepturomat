@@ -5,6 +5,7 @@ import { AuthCredentials } from '@recepturomat/data-model';
 import { useAuthentication } from '../../api/authentication';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
+import { useTranslation } from '../../i18n';
 
 export const LoginForm = () => {
   const {
@@ -14,6 +15,7 @@ export const LoginForm = () => {
   } = useForm<AuthCredentials>();
 
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const { login, user } = useAuthentication();
   useEffect(() => {
@@ -22,8 +24,7 @@ export const LoginForm = () => {
     }
   }, [navigate, user]);
   if (user) {
-    // navigate('/');
-    return <div>You are logged in as {user.username}</div>;
+    return <div>{t('auth.loggedInAs', { username: user.username })}</div>;
   }
 
   const authenticate = (credentials: AuthCredentials) => {
@@ -35,16 +36,16 @@ export const LoginForm = () => {
       <TextInput
         {...register('username', { required: true })}
         className="w-[100%]"
-        label="Login"
+        label={t('auth.username')}
         isInvalid={!!errors.password}
-        placeholder="Username"
+        placeholder={t('auth.username')}
         type={'text'}
       />
       <TextInput
         {...register('password', { required: true, minLength: 3 })}
         className="w-[100%]"
-        label="Password"
-        placeholder="Password"
+        label={t('auth.password')}
+        placeholder={t('auth.password')}
         type={'password'}
       />
       <SubmitButton />

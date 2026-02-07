@@ -1,5 +1,6 @@
 import { ApiError } from '@recepturomat/data-model';
 import { useEffect } from 'react';
+import { useTranslation } from '../i18n';
 
 type ErrorProps = {
   error: ApiError | Error;
@@ -7,6 +8,7 @@ type ErrorProps = {
 
 export const ErrorMessage = ({ error }: ErrorProps) => {
   const { message, errorType } = useError(error);
+  const t = useTranslation();
 
   useEffect(() => {
     console.error(error);
@@ -17,7 +19,7 @@ export const ErrorMessage = ({ error }: ErrorProps) => {
       <div className="object-center grid grid-cols-1 p-4">
         <div className="rounded-xl bg-error p-4 text-error-content">
           <h1 className="text-3xl mb-4">
-            <b>Error - {errorType}</b>
+            <b>{t('common.error')} - {errorType}</b>
           </h1>
           <div className="bg-neutral text-neutral-content p-4">
             <pre>{message}</pre>

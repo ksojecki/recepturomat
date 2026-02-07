@@ -7,7 +7,7 @@ import {
 
 
 export default [
-  layout('./ApiLayout.tsx', [
+  layout('./AppLayout.tsx', [
     index('./recipes/RecipesListPage.tsx'),
     route( '/recipe/:recipeId','./recipes/RecipePage.tsx'),
     route( '/recipe/:recipeId/edit','./recipes/EditRecipePage.tsx'),

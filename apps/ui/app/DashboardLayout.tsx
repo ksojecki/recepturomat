@@ -6,10 +6,13 @@ import { Modal } from '@ui/modal';
 import { useRef } from 'react';
 import { Button } from '@ui/forms/Button';
 import { ModalApi } from '@ui/modal/Modal';
+import { useTranslation } from './i18n';
 
 export const DashboardLayout = () => {
   const { isLoading, user, logout } = useAuthentication();
   const modal = useRef<ModalApi>(null);
+  const t = useTranslation();
+
   const askForLogout = () => {
     modal.current?.show();
   };
@@ -22,28 +25,28 @@ export const DashboardLayout = () => {
     <>
       <Outlet />
       <Menu size={5}>
-        <Menu.Link tooltip="Source code" onClick={goToGithub}>
-          Source code
+        <Menu.Link tooltip={t('menu.sourceCode')} onClick={goToGithub}>
+          {t('menu.sourceCode')}
         </Menu.Link>
         {user && (
-          <Menu.Link tooltip="Logout" onClick={askForLogout}>
+          <Menu.Link tooltip={t('menu.logout')} onClick={askForLogout}>
             <FaUser />
           </Menu.Link>
         )}
         {user && (
-          <Menu.Link tooltip="Settings" onClick={askForLogout}>
+          <Menu.Link tooltip={t('menu.settings')} onClick={askForLogout}>
             <FaTools />
           </Menu.Link>
         )}
-        <Menu.ToggleTheme tooltip={'Change theme'} />
+        <Menu.ToggleTheme tooltip={t('menu.changeTheme')} />
       </Menu>
       <Modal api={modal}>
-        <Modal.Title>Log out</Modal.Title>
-        <Modal.Content>Do you want to logout?</Modal.Content>
+        <Modal.Title>{t('auth.logout')}</Modal.Title>
+        <Modal.Content>{t('auth.logoutConfirm')}</Modal.Content>
         <Button onClick={logout} className="btn-primary">
-          Yes
+          {t('common.yes')}
         </Button>
-        <Button>No</Button>
+        <Button>{t('common.no')}</Button>
       </Modal>
     </>
   );

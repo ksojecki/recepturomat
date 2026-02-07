@@ -3,6 +3,7 @@ import { Recipe, Ingredient } from '@recepturomat/data-model';
 import { RecipeCheckbox } from './RecipeCheckbox.tsx';
 import { RecipeReferenceSection } from './RecipeReferenceSection.tsx';
 import { IngredientActions } from './IngredientActions.tsx';
+import { useTranslation } from '../../../i18n';
 
 interface IngredientItemProps {
   ingredient: Ingredient;
@@ -29,6 +30,8 @@ export function IngredientItem({
   onMoveDown,
   onRemove,
 }: IngredientItemProps) {
+  const t = useTranslation();
+
   if(ingredient === undefined) {
     return null;
   }
@@ -44,22 +47,22 @@ export function IngredientItem({
     >
       <div className="list-col-grow space-x-4 space-y-4">
         <label className="input">
-          <span className="label">Składnik</span>
+          <span className="label">{t('recipeForm.ingredient')}</span>
           <input
             {...register(`ingredients.${index}.name`)}
-            placeholder="Składnik"
+            placeholder={t('recipeForm.ingredient')}
           />
         </label>
         <label className="input">
-          <span className="label">Ilość</span>
+          <span className="label">{t('recipeForm.amount')}</span>
           <input
             {...register(`ingredients.${index}.amount`)}
-            placeholder="Składnik"
+            placeholder={t('recipeForm.ingredient')}
           />
           <select {...register(`ingredients.${index}.unit`)}>
-            <option value="g">g</option>
-            <option value="pcs">sztuk</option>
-            <option value="ml">ml</option>
+            <option value="g">{t('units.g')}</option>
+            <option value="pcs">{t('units.pcs')}</option>
+            <option value="ml">{t('units.ml')}</option>
           </select>
         </label>
         <RecipeCheckbox

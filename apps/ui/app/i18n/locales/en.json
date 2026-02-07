@@ -1,0 +1,60 @@
+{
+  "app": {
+    "name": "Recepturomat",
+    "loading": "Loading..."
+  },
+  "auth": {
+    "login": "Log in",
+    "logout": "Log out",
+    "logoutConfirm": "Do you want to logout?",
+    "loggedInAs": "You are logged in as {{username}}",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Submit"
+  },
+  "menu": {
+    "sourceCode": "Source code",
+    "logout": "Logout",
+    "settings": "Settings",
+    "changeTheme": "Change theme"
+  },
+  "recipes": {
+    "title": "Recipes",
+    "search": "Search",
+    "addRecipe": "Add recipe",
+    "view": "View",
+    "print": "Print",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "newWeight": "New weight",
+    "weightUnit": "g",
+    "pieces": "pieces"
+  },
+  "recipeForm": {
+    "title": "Title",
+    "productWeight": "Product weight",
+    "ingredient": "Ingredient",
+    "amount": "Amount",
+    "recipe": "Recipe",
+    "selectRecipe": "Select recipe",
+    "newIngredient": "New ingredient"
+  },
+  "units": {
+    "g": "g",
+    "pcs": "pcs",
+    "ml": "ml"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "error": "Error",
+    "back": "Back",
+    "home": "Home"
+  },
+  "errors": {
+    "unknown": "unknown"
+  }
+}
+

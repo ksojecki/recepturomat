@@ -3,6 +3,7 @@ import { Recipe } from '@recepturomat/data-model';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { NestedIngredientList } from '../NestedIngredientList.tsx';
 import { useState } from 'react';
+import { useTranslation } from '../../../i18n';
 
 interface RecipeReferenceSectionProps {
   index: number;
@@ -22,9 +23,11 @@ export function RecipeReferenceSection({
   register,
 }: RecipeReferenceSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const t = useTranslation();
+
   return (
     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-      <legend className="fieldset-legend">Przepis</legend>
+      <legend className="fieldset-legend">{t('recipeForm.recipe')}</legend>
       <div className="join">
         <select
           className="input join-item flex-grow"
@@ -32,7 +35,7 @@ export function RecipeReferenceSection({
             disabled: !isSuccess,
           })}
         >
-          <option value="SELECT">Wybierz przepis</option>
+          <option value="SELECT">{t('recipeForm.selectRecipe')}</option>
           {recipes?.map((recipe) => (
             <option key={recipe.recipeId} value={recipe.recipeId}>
               {recipe.name}

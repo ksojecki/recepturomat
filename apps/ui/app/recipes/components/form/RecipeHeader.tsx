@@ -3,6 +3,7 @@ import { FaArrowLeft, FaArrowUp, FaFloppyDisk, FaCircleXmark } from 'react-icons
 import { UseFormRegister } from 'react-hook-form';
 import { Recipe } from '@recepturomat/data-model';
 import { Button } from '@ui/forms/Button.tsx';
+import { useTranslation } from '../../../i18n';
 
 interface RecipeHeaderProps {
   recipeId: string | undefined;
@@ -11,6 +12,7 @@ interface RecipeHeaderProps {
 
 export function RecipeHeader({ recipeId, register }: RecipeHeaderProps) {
   const navigate = useNavigate();
+  const t = useTranslation();
 
   return (
     <div className="flex flex-col pb-4">
@@ -24,14 +26,14 @@ export function RecipeHeader({ recipeId, register }: RecipeHeaderProps) {
         <input
           {...register('name')}
           className="input join-item flex-grow"
-          placeholder="Tytuł"
+          placeholder={t('recipeForm.title')}
         />
         <Link className="btn join-item" to={`/recipe/${recipeId}/`}>
-          Anuluj
+          {t('recipes.cancel')}
           <FaCircleXmark />
         </Link>
         <Button type="submit" className="btn btn-success join-item">
-          Zapisz
+          {t('recipes.save')}
           <FaFloppyDisk />
         </Button>
       </div>

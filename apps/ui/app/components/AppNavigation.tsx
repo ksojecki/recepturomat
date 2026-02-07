@@ -1,9 +1,12 @@
+import { useTranslation } from '../i18n';
+
 export function AppNavigation() {
+  const t = useTranslation();
   return (
     <nav className="navbar bg-base-100 shadow-sm absolute top-0 z-50 w-full">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl" href="#1">
-          Recepturomat
+          {t('app.name')}
         </a>
       </div>
       <div className="flex-none">

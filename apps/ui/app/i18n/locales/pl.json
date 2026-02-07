@@ -1,0 +1,60 @@
+{
+  "app": {
+    "name": "Recepturomat",
+    "loading": "Ładowanie..."
+  },
+  "auth": {
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "logoutConfirm": "Czy chcesz się wylogować?",
+    "loggedInAs": "Jesteś zalogowany jako {{username}}",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "submit": "Wyślij"
+  },
+  "menu": {
+    "sourceCode": "Kod źródłowy",
+    "logout": "Wyloguj",
+    "settings": "Ustawienia",
+    "changeTheme": "Zmień motyw"
+  },
+  "recipes": {
+    "title": "Receptury",
+    "search": "Szukaj",
+    "addRecipe": "Dodaj przepis",
+    "view": "Zobacz",
+    "print": "Drukuj",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "newWeight": "Nowa waga",
+    "weightUnit": "g",
+    "pieces": "sztuk"
+  },
+  "recipeForm": {
+    "title": "Tytuł",
+    "productWeight": "Waga produktu",
+    "ingredient": "Składnik",
+    "amount": "Ilość",
+    "recipe": "Przepis",
+    "selectRecipe": "Wybierz przepis",
+    "newIngredient": "Nowy składnik"
+  },
+  "units": {
+    "g": "g",
+    "pcs": "sztuk",
+    "ml": "ml"
+  },
+  "common": {
+    "yes": "Tak",
+    "no": "Nie",
+    "error": "Błąd",
+    "back": "Wstecz",
+    "home": "Strona główna"
+  },
+  "errors": {
+    "unknown": "nieznany"
+  }
+}
+

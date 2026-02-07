@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { Button } from '@ui/forms/Button';
 import { Loading } from '@ui/loading';
+import { useTranslation } from '../i18n';
 
 type AlteredWeight = {
   unit: 'g' | 'pcs';
@@ -23,6 +24,7 @@ export const RecipePage = () => {
   const { recipeId } = useParams();
   const navigate= useNavigate();
   const { recipe, setNewWeight, reset, deleteRecord } = useRecalculatedRecipe(recipeId);
+  const t = useTranslation();
 
   const { register, watch, setValue } = useForm<AlteredWeight>({
     defaultValues: {
@@ -46,22 +48,22 @@ export const RecipePage = () => {
         <div className="flex flex-row space-x-1">
           <Button onClick={() => navigate(-1)}><FaArrowLeft /></Button>
           <Link className={'btn'} to='/' ><FaArrowUp /></Link>
-          <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} g</h1>
-          <Button className="btn-success join-item">Drukuj<FaPrint /></Button>
+          <h1 className="text-3xl pb-4 font-bold flex-grow">{recipe.name} - {recipe.weight} {t('units.g')}</h1>
+          <Button className="btn-success join-item">{t('recipes.print')}<FaPrint /></Button>
           <Link className="btn join-item" to={{
             pathname: `/recipe/${recipeId}/edit`,
-          }}>Edytuj<FaEdit /></Link>
+          }}>{t('recipes.edit')}<FaEdit /></Link>
           <Button className="join-item" onClick={() =>
             deleteRecord.mutateAsync().then(() => navigate('/'))
-          }>Usuń<FaTrash /></Button>
+          }>{t('recipes.delete')}<FaTrash /></Button>
         </div>
         <div className="flex flex-col space-y-2">
           <div className="join w-full">
-            <input {...register('value')} className="input join-item flex-grow" placeholder="Nowa waga"
+            <input {...register('value')} className="input join-item flex-grow" placeholder={t('recipes.newWeight')}
             />
             <select {...register('unit')} className="select join-item w-[100px]">
-              <option value={'g'}>g</option>
-              <option value={'pcs'}>sztuk</option>
+              <option value={'g'}>{t('units.g')}</option>
+              <option value={'pcs'}>{t('recipes.pieces')}</option>
             </select>
             <Button className="btn-primary join-item" onClick={() => {
               setValue('value', undefined);

@@ -7,6 +7,7 @@ import {
 } from 'react-hook-form';
 import { Recipe } from '@recepturomat/data-model';
 import { IngredientItem } from './IngredientItem.tsx';
+import { useTranslation } from '../../../i18n';
 
 interface IngredientsListProps {
   control: Control<Recipe>;
@@ -29,10 +30,11 @@ export function IngredientsList({
   });
 
   const ingredients = useWatch({ control, name: 'ingredients' });
+  const t = useTranslation();
 
   return (
     <ul className="list bg-base-100 rounded-box shadow-md">
-      <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">Przepis</li>
+      <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">{t('recipeForm.recipe')}</li>
       {fields.map((field, index) => (
         <IngredientItem
           key={field.id}
@@ -61,7 +63,7 @@ export function IngredientsList({
               }, { shouldFocus: true});
             }}
           >
-            Nowy składnik
+            {t('recipeForm.newIngredient')}
           </button>
         </div>
       </li>

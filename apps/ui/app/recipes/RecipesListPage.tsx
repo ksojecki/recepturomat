@@ -8,12 +8,15 @@ import { useRecipesList } from '../api/useRecipesList';
 import { RecipeListEntry } from '@recepturomat/data-model';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Link } from 'react-router';
+import { useTranslation } from '../i18n';
 
 const EMPTY_RECIPE_LIST: RecipeListEntry[] = [];
 
 export function RecipesListPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const { data, error, isLoading } = useRecipesList(searchQuery.length > 0 ? searchQuery : undefined);
+  const t = useTranslation();
+
   const update: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setSearchQuery(event.target.value);
   }, []);
@@ -27,9 +30,9 @@ export function RecipesListPage() {
     <>
       <div className="flex flex-col m-4 pb-4">
         <div className="flex">
-          <h1 className="text-3xl pb-4 font-bold flex-grow">Receptury</h1>
+          <h1 className="text-3xl pb-4 font-bold flex-grow">{t('recipes.title')}</h1>
           <Link to={'recipe/new'} className="btn join-item">
-            Dodaj przepis
+            {t('recipes.addRecipe')}
             <FaPlusCircle />
           </Link>
         </div>
@@ -39,7 +42,7 @@ export function RecipesListPage() {
             type="text"
             value={searchQuery}
             onChange={update}
-            placeholder="Szukaj"
+            placeholder={t('recipes.search')}
             className="input input-bordered join-item flex-grow"
           />
           <Button className="btn-primary join-item" onClick={() => setSearchQuery('')}  >
